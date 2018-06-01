@@ -1,7 +1,6 @@
 // En_Decoder.cpp : Defines the entry point for the console application.
 //
 
-#include "stdafx.h"
 #include <string>
 #include <iostream>
 #include "Dictionary.h"
@@ -94,6 +93,7 @@ int menu()
 	{
 		return 6;
 	}*/
+    return 0;
 
 }
 
@@ -119,7 +119,7 @@ int main()
 {
 	Dictionary *encode_dictionary = new Dictionary();
 	encode_dictionary->setEnDict();
-	Dictionary *decode_dictionary = new Dictionary();
+//	Dictionary *decode_dictionary = new Dictionary();
 	//decode_dictionary->setDeDict(swapjson(encode_dictionary->getDict()));
 	Encoder *encode= new Encoder();
 	//Decoder *decode=NULL;
