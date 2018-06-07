@@ -119,15 +119,20 @@ int main()
 {
 	Dictionary *encode_dictionary = new Dictionary();
 	encode_dictionary->setEnDict();
-//	Dictionary *decode_dictionary = new Dictionary();
-	//decode_dictionary->setDeDict(swapjson(encode_dictionary->getDict()));
+    Dictionary *decode_dictionary = new Dictionary();
+    //decode_dictionary->setDeDict(swapjson(encode_dictionary->getDict()));
 	Encoder *encode= new Encoder();
 	//Decoder *decode=NULL;
 
 	helper();
-	int menuswitch = menu();
-	while (menuswitch != 6)
+    int menuswitch = 0;
+    while (true)
 	{
+        menuswitch = menu();
+        if(menuswitch == 6)
+        {
+            break;
+        }
 		if (menuswitch == 1)
 		{
 			string input;
@@ -137,9 +142,9 @@ int main()
 		}
 		if (menuswitch == 2)
 		{
-			//string input;
-			//cin >> input;
-			//encode->(encode_dictionary->getDict(), encode_dictionary->getDict());
+            string input;
+            cin >> input;
+            //encode->DecodeIt(input,decode_dictionary);
 		}
 		if (menuswitch == 3)
 		{
@@ -152,9 +157,7 @@ int main()
 		if (menuswitch == 5)
 		{
 			helper();
-		}
-		menuswitch = 0;
-		menuswitch = menu();
+        }
 	}
     return 0;
 }
