@@ -19,14 +19,6 @@ void helper()
 	cout << "> EXIT" << endl;
 }
 
-int menu()
-{
-    //cout << "Type a command:" << endl;
-    int input;
-	cin >> input;
-    cout << input << endl;
-    return input;
-}
 
 Encoder encoder(Encoder* encode, Dictionary* dictionary)
 {
@@ -56,38 +48,36 @@ int main()
 	//Decoder *decode=NULL;
 
 	helper();
-    int menuswitch = 0;
-    while (true)
+    int input;
+    cin >> input;
+    cout << input << endl;
+    return input;
+    while (input != 0)
 	{
-        menuswitch = menu();
-        if(menuswitch == 6)
-        {
+        switch (input) {
+        case 0:
+            input = 0;
+        case 1:
+            string inputString;
+            cin >> inputString;
+            encode->EncodeIt(inputString, encode_dictionary->getDict());
             break;
-        }
-		if (menuswitch == 1)
-		{
-			string input;
-			cin >> input;
-			encode->EncodeIt(input, encode_dictionary->getDict());
-
-		}
-		if (menuswitch == 2)
-		{
+        case 2:
             string input;
             cin >> input;
             //encode->DecodeIt(input,decode_dictionary);
-		}
-		if (menuswitch == 3)
-		{
+            break;
+        case 3:
 
-		}
-		if (menuswitch == 4)
-		{
+            break;
+        case 4:
 
-		}
-		if (menuswitch == 5)
-		{
-			helper();
+            break;
+        case 5:
+            helper();
+            break;
+        default:
+            break;
         }
 	}
     return 0;
