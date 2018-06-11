@@ -11,12 +11,12 @@ using namespace std;
 void helper()
 {
 	cout << "Available commands:" << endl;
-	cout << "> ENCODE" << endl;
-	cout << "> DECODE" << endl;
-	cout << "> ENCODE_FILE" << endl;
-	cout << "> DECODE_FILE" << endl;
-	cout << "> HELP" << endl;
-	cout << "> EXIT" << endl;
+    cout << ">1 ENCODE" << endl;
+    cout << ">2 DECODE" << endl;
+    cout << ">3 ENCODE_FILE" << endl;
+    cout << ">4 DECODE_FILE" << endl;
+    cout << ">5 HELP" << endl;
+    cout << ">0 EXIT" << endl;
 }
 
 
@@ -48,30 +48,22 @@ int main()
 	//Decoder *decode=NULL;
 
 	helper();
-    int input;
-    cin >> input;
-    cout << input << endl;
-    return input;
+    int input = 10;
+
     while (input != 0)
 	{
+        cin >> input;
+        cout << input << endl;
+        string EncodeString;
+        string DecodeString;
         switch (input) {
-        case 0:
-            input = 0;
         case 1:
-            string inputString;
-            cin >> inputString;
-            encode->EncodeIt(inputString, encode_dictionary->getDict());
+            cin >> EncodeString;
+            encode->EncodeIt(EncodeString, encode_dictionary->getDict());
             break;
         case 2:
-            string input;
-            cin >> input;
-            //encode->DecodeIt(input,decode_dictionary);
-            break;
-        case 3:
-
-            break;
-        case 4:
-
+            cin >> DecodeString;
+            //encode->DecodeIt(DecodeString,decode_dictionary);
             break;
         case 5:
             helper();
