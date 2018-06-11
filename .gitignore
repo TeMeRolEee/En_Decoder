@@ -1,1 +1,10 @@
 *.pro
+.qmake.stash
+Dictionary.o
+En_Decoder
+En_Decoder.o
+En_Decoder.pro.user
+Encoder.o
+Makefile
+
+
