@@ -22,3 +22,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Input
 HEADERS += Dictionary.h Encoder.h json.hpp
 SOURCES += Dictionary.cpp En_Decoder.cpp Encoder.cpp
+
+DISTFILES += \
+    dict.json
