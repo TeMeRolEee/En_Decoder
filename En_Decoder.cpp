@@ -13,8 +13,8 @@ void helper()
 	cout << "Available commands:" << endl;
     cout << ">1 ENCODE" << endl;
     cout << ">2 DECODE" << endl;
-    cout << ">3 ENCODE_FILE" << endl;
-    cout << ">4 DECODE_FILE" << endl;
+    //cout << ">3 ENCODE_FILE" << endl;
+    //cout << ">4 DECODE_FILE" << endl;
     cout << ">5 HELP" << endl;
     cout << ">0 EXIT" << endl;
 }
@@ -49,13 +49,13 @@ int main()
 
 	helper();
     int input = 10;
-
+    string EncodeString;
+    string DecodeString;
     while (input != 0)
 	{
         cin >> input;
         cout << input << endl;
-        string EncodeString;
-        string DecodeString;
+
         switch (input) {
         case 1:
             cin >> EncodeString;
