@@ -9,15 +9,12 @@ class Dictionary
 {
 	json dictionary;
 public:
-	Dictionary();
+    Dictionary(string path);
 	~Dictionary();
 
-	void setEnDict();
-	json getDict();
-	json ReadJson(const string &path);
-	bool canbeopened(const string &path);
+    json getDict();
 
-	void setDeDict(json dictionary);
+    void setDeDict(json inputJson);
 
 };
 

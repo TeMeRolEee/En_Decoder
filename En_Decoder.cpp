@@ -40,9 +40,11 @@ json swapjson(json dictionary)
 
 int main()
 {
-	Dictionary *encode_dictionary = new Dictionary();
-	encode_dictionary->setEnDict();
-    Dictionary *decode_dictionary = new Dictionary();
+    string encodePath;
+    cout << "Pls give me the path: ";
+    cin >> encodePath;
+    Dictionary *encode_dictionary = new Dictionary(encodePath);
+    //Dictionary *decode_dictionary = new Dictionary();
     //decode_dictionary->setDeDict(swapjson(encode_dictionary->getDict()));
 	Encoder *encode= new Encoder();
 	//Decoder *decode=NULL;
@@ -54,14 +56,13 @@ int main()
     while (input != 0)
 	{
         cin >> input;
-        cout << input << endl;
-
         switch (input) {
         case 1:
             cin >> EncodeString;
             encode->EncodeIt(EncodeString, encode_dictionary->getDict());
             break;
         case 2:
+            cout << input << endl;
             cin >> DecodeString;
             //encode->DecodeIt(DecodeString,decode_dictionary);
             break;
