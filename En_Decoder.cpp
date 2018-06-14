@@ -29,14 +29,7 @@ Encoder encoder(Encoder* encode, Dictionary* dictionary)
 	return *encode;
 }
 
-json swapjson(json dictionary)
-{
-	json temp;
-	for (json::iterator it = dictionary.begin(); it != dictionary.end(); ++it) {
-		temp.push_back({ it.value(), it.key() });
-	}
-	return temp;
-}
+
 
 int main()
 {
@@ -44,8 +37,7 @@ int main()
     cout << "Pls give me the path: ";
     cin >> encodePath;
     Dictionary *encode_dictionary = new Dictionary(encodePath);
-    //Dictionary *decode_dictionary = new Dictionary();
-    //decode_dictionary->setDeDict(swapjson(encode_dictionary->getDict()));
+    Dictionary *decode_dictionary = new Dictionary(encode_dictionary->getDict());
 	Encoder *encode= new Encoder();
 	//Decoder *decode=NULL;
 
@@ -64,7 +56,7 @@ int main()
         case 2:
             cout << input << endl;
             cin >> DecodeString;
-            //encode->DecodeIt(DecodeString,decode_dictionary);
+            //encode->DecodeIt(DecodeString,decode_dictionary->getDict());
             break;
         case 5:
             helper();

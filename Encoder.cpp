@@ -17,7 +17,7 @@ void Encoder::EncodeIt(const string& input, json dictionary)
 	{
 		string actual(1, input[i]);
         if(dictionary[actual.c_str()].is_null() != true)
-		cout << dictionary[actual.c_str()];
+        cout << dictionary[actual.c_str()];
 	}
 	cout << endl;
 }

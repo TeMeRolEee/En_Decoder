@@ -23,6 +23,11 @@ Dictionary::Dictionary(string path)
     } while (true);
 }
 
+Dictionary::Dictionary(json inputJson)
+{
+    swapJson(inputJson);
+}
+
 
 Dictionary::~Dictionary()
 {
@@ -41,5 +46,14 @@ void Dictionary::setDeDict(json inputJson)
     }
 
 }
+
+void Dictionary::swapJson(json inputJson)
+{
+    for (json::iterator it = inputJson.begin(); it != inputJson.end(); ++it)
+    {
+        dictionary.push_back({ it.value(), it.key() });
+    }
+}
+
 
 
