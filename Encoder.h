@@ -14,9 +14,7 @@ private:
 public:
 	Encoder();
 	~Encoder();
-
 	void EncodeIt(const string& input, json dictionary);
-	void DecodeIt(const string& input, json dictionary);
 	
 };
 

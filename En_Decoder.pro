@@ -20,8 +20,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += Dictionary.h Encoder.h json.hpp
-SOURCES += Dictionary.cpp En_Decoder.cpp Encoder.cpp
+HEADERS += Dictionary.h Encoder.h json.hpp \
+    Decoder.h
+SOURCES += Dictionary.cpp En_Decoder.cpp Encoder.cpp \
+    Decoder.cpp
 
 DISTFILES += \
     dict.json

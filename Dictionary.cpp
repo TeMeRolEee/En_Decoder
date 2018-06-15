@@ -19,7 +19,6 @@ Dictionary::Dictionary(string path)
             cout << "Invalid path / or file cannot be opened. Please try again: ";
             std::cin >> path;
         }
-
     } while (true);
 }
 

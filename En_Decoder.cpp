@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Dictionary.h"
 #include "Encoder.h"
+#include "Decoder.h"
 
 using namespace std;
 
@@ -38,7 +39,8 @@ int main()
     cin >> encodePath;
     Dictionary *encode_dictionary = new Dictionary(encodePath);
     Dictionary *decode_dictionary = new Dictionary(encode_dictionary->getDict());
-	Encoder *encode= new Encoder();
+    Encoder *encoder = new Encoder();
+    Decoder *decoder = new Decoder();
 	//Decoder *decode=NULL;
 
 	helper();
@@ -51,12 +53,12 @@ int main()
         switch (input) {
         case 1:
             cin >> EncodeString;
-            encode->EncodeIt(EncodeString, encode_dictionary->getDict());
+            encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
             break;
         case 2:
             cout << input << endl;
             cin >> DecodeString;
-            //encode->DecodeIt(DecodeString,decode_dictionary->getDict());
+            decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
             break;
         case 5:
             helper();
