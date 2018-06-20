@@ -38,14 +38,6 @@ json Dictionary::getDict()
 	return dictionary;
 }
 
-void Dictionary::setDeDict(json inputJson)
-{
-    for (json::iterator it = inputJson.begin(); it != inputJson.end(); ++it)
-    {
-        dictionary.push_back({ it.key(), it.value() });
-    }
-
-}
 
 void Dictionary::swapJson(json inputJson)
 {
