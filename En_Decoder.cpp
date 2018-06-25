@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+
 #include "Dictionary.h"
 #include "Encoder.h"
 #include "Decoder.h"
@@ -19,18 +20,6 @@ void helper()
     cout << ">5 HELP" << endl;
     cout << ">0 EXIT" << endl;
 }
-
-
-Encoder encoder(Encoder* encode, Dictionary* dictionary)
-{
-	//cout << "Encoder fuggveny" << endl;
-	string input;
-	cin >> input;
-	encode->EncodeIt(input, dictionary->getDict());
-	return *encode;
-}
-
-
 
 int main()
 {

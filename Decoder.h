@@ -1,11 +1,10 @@
-#ifndef DECODER_H
-#define DECODER_H
-
 #pragma once
-#include <string>
-#include "json.hpp"
 #include <iostream>
+#include <string>
+
+#include "json.hpp"
 #include "Dictionary.h"
+
 using json = nlohmann::json;
 using namespace std;
 
@@ -17,4 +16,3 @@ public:
     void DecodeIt(const string & input, json dictionary);
 };
 
-#endif // DECODER_H
