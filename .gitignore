@@ -8,3 +8,5 @@ Encoder.o
 Makefile
 
 
+*.o
+*.debug
