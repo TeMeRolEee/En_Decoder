@@ -7,7 +7,7 @@ using namespace std;
 using json = nlohmann::json;
 class Dictionary
 {
-    json dictionary;
+    json dictionary{{}};
     void swapJson(json inputJson);
 public:
     Dictionary(string path);

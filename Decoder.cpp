@@ -17,15 +17,11 @@ void Decoder::DecodeIt(const string & input, json dictionary)
     for (unsigned int i = 0; i < input.length(); i++)
     {
         actualInputString += input[i];
-        cout << "Actual decoderstring: " << actualInputString << endl;
-        for (json::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
+        auto tempString = dictionary.find(actualInputString);
+        if(tempString != dictionary.end())
         {
-            pair <string, string> pairTemp = *it;
-            if(actualInputString == pairTemp.first)
-            {
-                outputString += pairTemp.second;
-                actualInputString = "";
-            }
+            outputString += *tempString;
+            actualInputString = "";
         }
     }
     if(actualInputString == "")
@@ -36,5 +32,4 @@ void Decoder::DecodeIt(const string & input, json dictionary)
     {
         cout << "Unavailable to decode" << endl;
     }
-    cout << endl;
 }

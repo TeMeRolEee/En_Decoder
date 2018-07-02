@@ -40,10 +40,12 @@ json Dictionary::getDict()
 
 void Dictionary::swapJson(json inputJson)
 {
+    json tempJson(json::value_t::object);
     for (json::iterator it = inputJson.begin(); it != inputJson.end(); ++it)
     {
-        dictionary.push_back({ it.value(), it.key() });
+        tempJson += json::object_t::value_type(it.value(), it.key());
     }
+    dictionary = tempJson;
 }
 
 
