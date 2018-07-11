@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <QFile>
+
 #include "json.hpp"
 
 using namespace std;
