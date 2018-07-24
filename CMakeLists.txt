@@ -14,3 +14,7 @@ file(GLOB sources *.cpp)
 
 add_executable(QtExample
         ${sources} Decoder.h Dictionary.h Encoder.cpp En_Decoder.cpp Decoder.cpp Dictionary.cpp Encoder.h)
+
+# linking
+target_link_libraries(En_Decoder Qt5::Core)
+target_link_libraries(En_Decoder Qt5::Widgets)

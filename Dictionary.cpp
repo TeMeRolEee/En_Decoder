@@ -1,51 +1,36 @@
 #include "Dictionary.h"
 
-#include <iostream>
-#include <fstream>
 
-Dictionary::Dictionary(string path)
-{
-    do
-    {
-        ifstream stream(path);
-        if (stream.is_open())
-        {
-            cout << "Reading..." << endl;
-            stream >> dictionary;
-            break;
-        }
-        else
-        {
-            cout << "Invalid path / or file cannot be opened. Please try again: ";
-            std::cin >> path;
-        }
-    } while (true);
+Dictionary::Dictionary(QString path) {
+	QFile handle(path);
+	if(!handle.open(QFile::ReadOnly)) return;
+
+	QByteArray data = handle.readAll();
+
+	dictionary = QJsonDocument::fromJson(data);
+
 }
 
-Dictionary::Dictionary(json inputJson)
-{
-    swapJson(inputJson);
+Dictionary::Dictionary(QJsonDocument inputJson) {
+	swapJson(inputJson);
 }
 
 
-Dictionary::~Dictionary()
-{
+Dictionary::~Dictionary() {
 }
 
-json Dictionary::getDict()
-{
+QJsonDocument Dictionary::getDict() {
 	return dictionary;
 }
 
 
-void Dictionary::swapJson(json inputJson)
-{
-    json tempJson(json::value_t::object);
-    for (json::iterator it = inputJson.begin(); it != inputJson.end(); ++it)
-    {
-        tempJson += json::object_t::value_type(it.value(), it.key());
-    }
-    dictionary = tempJson;
+void Dictionary::swapJson(QJsonDocument inputJson) {
+	QJsonDocument tempJson;
+//	QJsonDocument tempJson(json::value_t::object);
+//	for (json::iterator it = inputJson.begin(); it != inputJson.end(); ++it) {
+//		tempJson += json::object_t::value_type(it.value(), it.key());
+//	}
+	dictionary = tempJson;
 }
 
 
