@@ -13,19 +13,19 @@ using namespace std;
 
 void helper()
 {
-	cout << "Available commands:" << endl;
-    cout << ">1 ENCODE" << endl;
-    cout << ">2 DECODE" << endl;
-    //cout << ">3 ENCODE_FILE" << endl;
-    //cout << ">4 DECODE_FILE" << endl;
-    cout << ">5 HELP" << endl;
-    cout << ">0 EXIT" << endl;
+	qDebug() << "Available commands:" << endl;
+    qDebug() << ">1 ENCODE" << endl;
+    qDebug() << ">2 DECODE" << endl;
+    //qDebug() << ">3 ENCODE_FILE" << endl;
+    //qDebug() << ">4 DECODE_FILE" << endl;
+    qDebug() << ">5 HELP" << endl;
+    qDebug() << ">0 EXIT" << endl;
 }
 
 int main()
 {
     string encodePath;
-    cout << "Pls give me the path: ";
+    qDebug() << "Pls give me the path: ";
     cin >> encodePath;
     Dictionary *encode_dictionary = new Dictionary(encodePath);
     Dictionary *decode_dictionary = new Dictionary(encode_dictionary->getDict());
@@ -46,7 +46,7 @@ int main()
             encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
             break;
         case 2:
-            cout << input << endl;
+            qDebug() << input << endl;
             cin >> DecodeString;
             decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
             break;

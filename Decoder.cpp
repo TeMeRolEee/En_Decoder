@@ -10,14 +10,16 @@ Decoder::~Decoder()
 
 }
 
-void Decoder::DecodeIt(const string & input, json dictionary)
+void Decoder::DecodeIt(const QString & input, QJsonDocument *dictionary)
 {
-    string outputString = "";
-    string actualInputString = "";
-    for (unsigned int i = 0; i < input.length(); i++)
+    QString outputString = "";
+    QJsonValue actualInputString = "";
+    for (qint32 i = 0; i < input.length(); i++)
     {
-        actualInputString += input[i];
-        auto tempString = dictionary.find(actualInputString);
+
+
+        actualInputString. += input[i];
+        auto tempString = dictionary[actualInputString];
         if(tempString != dictionary.end())
         {
             outputString += *tempString;
@@ -26,10 +28,10 @@ void Decoder::DecodeIt(const string & input, json dictionary)
     }
     if(actualInputString == "")
     {
-        cout << "Decoding result: " << outputString << endl;
+        qDebug() << "Decoding result: " << outputString;
     }
     else
     {
-        cout << "Unavailable to decode" << endl;
+        qDebug() << "Unavailable to decode" << endl;
     }
 }

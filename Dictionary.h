@@ -4,7 +4,7 @@
 
 class Dictionary
 {
-    QJsonDocument dictionary;
+    QJsonDocument *dictionary;
     void swapJson(QJsonDocument inputJson);
 public:
     Dictionary(QString path);
