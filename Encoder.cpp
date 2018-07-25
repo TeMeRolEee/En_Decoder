@@ -31,7 +31,7 @@ void Encoder::EncodeIt(QString input, QJsonDocument dictionary)
 
 
     }
-    qDebug() << encodedString << endl;
+    qDebug() << encodedString;
 }
 
 

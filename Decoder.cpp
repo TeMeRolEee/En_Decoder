@@ -17,13 +17,18 @@ void Decoder::DecodeIt(QString input, QJsonDocument dictionary)
     for (qint32 i = 0; i < input.length(); i++)
     {
         actualInputString = actualInputString.append(input.at(i));
-        actualInputString += input[i];
+        //qDebug() << "actualInputString" << actualInputString;
         QJsonObject tempObject = dictionary.object();
         QJsonValue tempValue = tempObject.value(actualInputString);
+        //qDebug() << "Current value" << tempValue;
         if(tempValue != QJsonValue::Undefined)
         {
+            //qDebug() << "Not undefined";
             outputString += tempValue.toString();
             actualInputString = "";
+        } else
+        {
+            //qDebug() << "Undefined";
         }
     }
     if(actualInputString == "")
