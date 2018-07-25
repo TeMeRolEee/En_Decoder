@@ -11,11 +11,11 @@ Dictionary::Dictionary(QString path)
 
     try
     {
-        *dictionary = QJsonDocument::fromJson(data);
+        dictionary = new QJsonDocument(QJsonDocument::fromJson(data));
     }
     catch (QException &exception)
     {
-        qDebug() << exception.what();
+        qDebug() << exception.what() << " bleeeeee";
     }
 
 
@@ -46,7 +46,7 @@ void Dictionary::swapJson(QJsonDocument inputJson)
 		QJsonValue jsonValue = jsonObject.value(key);
 		insertJson->insert(jsonValue.toString(),key);
 	}
-
+    qDebug() << "swapped";
     try
     {
         dictionary = new QJsonDocument(*insertJson);
