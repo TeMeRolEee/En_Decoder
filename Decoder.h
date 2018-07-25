@@ -12,6 +12,6 @@ class Decoder
 public:
     Decoder();
     ~Decoder();
-    void DecodeIt(const QString & input, QJsonDocument *dictionary);
+    void DecodeIt(QString input, QJsonDocument dictionary);
 };
 

@@ -4,11 +4,21 @@
 Dictionary::Dictionary(QString path)
 {
 	QFile handle(path);
-	if(!handle.open(QFile::ReadOnly)) return;
+	if(!handle.open(QFile::ReadOnly)) qDebug() << "Couldn't open file";
 
 	QByteArray data = handle.readAll();
+	qDebug() << "file opened";
 
-	*dictionary = QJsonDocument::fromJson(data);
+    try
+    {
+        *dictionary = QJsonDocument::fromJson(data);
+    }
+    catch (QException &exception)
+    {
+        qDebug() << exception.what();
+    }
+
+
 }
 
 Dictionary::Dictionary(QJsonDocument inputJson)
@@ -37,7 +47,15 @@ void Dictionary::swapJson(QJsonDocument inputJson)
 		insertJson->insert(jsonValue.toString(),key);
 	}
 
-	dictionary = new QJsonDocument(*insertJson);
+    try
+    {
+        dictionary = new QJsonDocument(*insertJson);
+    }
+    catch (QException &exception)
+    {
+        qDebug() << exception.what();
+    }
+
 }
 
 

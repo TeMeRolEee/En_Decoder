@@ -10,19 +10,19 @@ Decoder::~Decoder()
 
 }
 
-void Decoder::DecodeIt(const QString & input, QJsonDocument *dictionary)
+void Decoder::DecodeIt(QString input, QJsonDocument dictionary)
 {
     QString outputString = "";
-    QJsonValue actualInputString = "";
+    QString actualInputString = "";
     for (qint32 i = 0; i < input.length(); i++)
     {
-
-
-        actualInputString. += input[i];
-        auto tempString = dictionary[actualInputString];
-        if(tempString != dictionary.end())
+        actualInputString = actualInputString.append(input.at(i));
+        actualInputString += input[i];
+        QJsonObject tempObject = dictionary.object();
+        QJsonValue tempValue = tempObject.value(actualInputString);
+        if(tempValue != QJsonValue::Undefined)
         {
-            outputString += *tempString;
+            outputString += tempValue.toString();
             actualInputString = "";
         }
     }
