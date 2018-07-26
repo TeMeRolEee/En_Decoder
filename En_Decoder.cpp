@@ -13,7 +13,6 @@ void helper()
 	qDebug() << "Available commands:";
     qDebug() << ">1 ENCODE";
     qDebug() << ">2 DECODE";
-    qDebug() << ">5 HELP";
     qDebug() << ">0 EXIT";
 }
 
@@ -22,6 +21,8 @@ int main(int argc, char *argv[])
     QCoreApplication app(argc, argv);
     QCoreApplication::setApplicationName("En_Decoder");
     QCoreApplication::setApplicationVersion("0.8.0");
+
+    //qDebug() << app.arguments();
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Encodes and decodes text via a given dictionary");
@@ -32,19 +33,19 @@ int main(int argc, char *argv[])
     //parser.addPositionalArgument("destination", QCoreApplication::translate("main", "Destination directory."));
 
     //-p  Path to the dictionary
-    QCommandLineOption pathToDictionaryOption("p",  QCoreApplication::translate("main", "The path to the dictionary file."));
+    QCommandLineOption pathToDictionaryOption(QStringList() << "p" << "path",  "The path to the dictionary", "path");
     parser.addOption(pathToDictionaryOption);
 
     //-en String to encode
-    QCommandLineOption encodeOption("en",  QCoreApplication::translate("main", "The string to be encoded."));
+    QCommandLineOption encodeOption(QStringList() << "e" <<  "encode", "The string to be encoded.", "encode");
     parser.addOption(encodeOption);
 
     //-de String to decode
-    QCommandLineOption decodeOption("de",  QCoreApplication::translate("main", "The string to be decoded."));
+    QCommandLineOption decodeOption(QStringList() << "d" <<  "decode", "The string to be decoded.", "decode");
     parser.addOption(decodeOption);
 
     //-help Helper
-    QCommandLineOption helpOption("help",  QCoreApplication::translate("main", "Helper"));
+    QCommandLineOption helpOption("help", "Helper");
     parser.addOption(helpOption);
 
     //Parsing the commands given by the user
@@ -52,57 +53,57 @@ int main(int argc, char *argv[])
 
 
 
+    QString dictionaryPath = parser.value(pathToDictionaryOption);
+    //qDebug() << dictionaryPath;
+    if(!parser.isSet(pathToDictionaryOption))
+    {
+        qDebug() << "No path given. Exiting";
+        return 1;
+    } else
+    {
+        dictionaryPath = parser.value(pathToDictionaryOption);
+        //qDebug() << "Path:" << dictionaryPath;
+    }
 
-    QTextStream qtin(stdin);
-    QString line = qtin.readLine();
-    QString dictionaryPath;
-    qDebug() << "Pls give me the path: ";
-    qtin >> dictionaryPath;
     Dictionary *encode_dictionary = new Dictionary(dictionaryPath);
     Dictionary *decode_dictionary = new Dictionary(encode_dictionary->getDict());
+
     Encoder *encoder = new Encoder();
     Decoder *decoder = new Decoder();
 
-	helper();
-    int input = 10;
     QString EncodeString;
     QString DecodeString;
-    while (input != 0)
-	{
-        qtin >> input;
-        switch (input) {
-        case 1:
-            qtin >> EncodeString;
-                try
-                {
-                    encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
-                }
-                catch(QException &exception)
-                {
-                    qDebug() << exception.what();
-                }
 
-            break;
-        case 2:
-            qDebug() << input;
-            qtin >> DecodeString;
+    if(parser.isSet(helpOption))
+    {
+        parser.showHelp();
+    }
 
-                try
-                {
-                    decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
-                }
-                catch(QException &exception)
-                {
-                    qDebug() << exception.what();
-                }
-            break;
-        case 5:
-            helper();
-            break;
-        default:
-            break;
+    if(parser.isSet(encodeOption))
+    {
+        EncodeString = parser.value(encodeOption);
+        try
+        {
+            encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
         }
-	}
+        catch(QException &exception)
+        {
+            qDebug() << exception.what();
+        }
+    }
+
+    if(parser.isSet(decodeOption))
+    {
+        DecodeString  = parser.value(decodeOption);
+        try
+        {
+            decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
+        }
+        catch(QException &exception)
+        {
+            qDebug() << exception.what();
+        }
+    }
     return 0;
 }
 

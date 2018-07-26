@@ -27,7 +27,7 @@ void Decoder::DecodeIt(QString input, QJsonDocument dictionary)
     }
     if(actualInputString == "")
     {
-        qDebug() << "Decoding result: " << outputString;
+        qDebug() << "Decoding result:" << outputString;
     }
     else
     {
