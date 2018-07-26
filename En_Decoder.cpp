@@ -17,8 +17,42 @@ void helper()
     qDebug() << ">0 EXIT";
 }
 
-int main()
+int main(int argc, char *argv[])
 {
+    QCoreApplication app(argc, argv);
+    QCoreApplication::setApplicationName("En_Decoder");
+    QCoreApplication::setApplicationVersion("0.8.0");
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription("Encodes and decodes text via a given dictionary");
+    parser.addHelpOption();
+    parser.addVersionOption();
+    //parser.addPositionalArgument("dictionary", QCoreApplication::translate("main", "The path to the dictionary file."));
+    //parser.addPositionalArgument("source", QCoreApplication::translate("main", "Source file to copy."));
+    //parser.addPositionalArgument("destination", QCoreApplication::translate("main", "Destination directory."));
+
+    //-p  Path to the dictionary
+    QCommandLineOption pathToDictionaryOption("p",  QCoreApplication::translate("main", "The path to the dictionary file."));
+    parser.addOption(pathToDictionaryOption);
+
+    //-en String to encode
+    QCommandLineOption encodeOption("en",  QCoreApplication::translate("main", "The string to be encoded."));
+    parser.addOption(encodeOption);
+
+    //-de String to decode
+    QCommandLineOption decodeOption("de",  QCoreApplication::translate("main", "The string to be decoded."));
+    parser.addOption(decodeOption);
+
+    //-help Helper
+    QCommandLineOption helpOption("help",  QCoreApplication::translate("main", "Helper"));
+    parser.addOption(helpOption);
+
+    //Parsing the commands given by the user
+    parser.process(app);
+
+
+
+
     QTextStream qtin(stdin);
     QString line = qtin.readLine();
     QString dictionaryPath;
