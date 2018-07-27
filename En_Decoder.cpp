@@ -63,14 +63,21 @@ int main(int argc, char *argv[]) {
 	Encoder *encoder = new Encoder();
 	Decoder *decoder = new Decoder();
 
-	QString EncodeString;
-	QString DecodeString;
+	QString EncodeString, EncodedString;
+	QString DecodeString, DecodedString;
 
 
 	if (parser.isSet(encodeOption)) {
 		EncodeString = parser.value(encodeOption);
 		try {
-			encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
+			EncodedString = encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
+            if(EncodedString == "")
+            {
+                qDebug() << "Wrong character in the input, unavailable to encode it!";
+            } else
+            {
+                qDebug() << EncodedString;
+            }
 		}
 		catch (QException &exception) {
 			qDebug() << exception.what();
@@ -79,7 +86,14 @@ int main(int argc, char *argv[]) {
 	} else if (parser.isSet(decodeOption)) {
 		DecodeString = parser.value(decodeOption);
 		try {
-			decoder->DecodeIt(DecodeString, decode_dictionary->getDict());
+			DecodedString = decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
+            if(DecodedString == "")
+            {
+                qDebug() << "Unavailable to decode";
+            } else
+            {
+                qDebug() << DecodedString;
+            }
 		}
 		catch (QException &exception) {
 			qDebug() << exception.what();

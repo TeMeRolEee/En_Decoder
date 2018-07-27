@@ -11,7 +11,7 @@ private:
 public:
 	Encoder();
 	~Encoder();
-	void EncodeIt(QString input, QJsonDocument dictionary);
+	QString EncodeIt(QString input, QJsonDocument dictionary);
 	
 };
 

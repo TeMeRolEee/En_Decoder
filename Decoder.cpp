@@ -10,7 +10,7 @@ Decoder::~Decoder()
 
 }
 
-void Decoder::DecodeIt(QString input, QJsonDocument dictionary)
+QString Decoder::DecodeIt(QString input, QJsonDocument dictionary)
 {
     QString outputString = "";
     QString actualInputString = "";
@@ -27,10 +27,7 @@ void Decoder::DecodeIt(QString input, QJsonDocument dictionary)
     }
     if(actualInputString == "")
     {
-        qDebug() << "Decoding result:" << outputString;
+        return outputString;
     }
-    else
-    {
-        qDebug() << "Unavailable to decode" << endl;
-    }
+    return "";
 }
