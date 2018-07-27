@@ -11,26 +11,27 @@ Encoder::~Encoder()
 {
 }
 
-void Encoder::EncodeIt(const string& input, json dictionary)
+void Encoder::EncodeIt(QString input, QJsonDocument dictionary)
 {
-    string encodedString;
-	for (unsigned int i = 0; i < input.length(); i++)
-	{
-        string actual(1, input[i]);
-        if(dictionary.find(actual) == dictionary.end())
+    QString encodedString;
+    for (unsigned int i = 0; i < input.length(); i++)
+    {
+        QString actual(1, input[i]);
+        QJsonObject tempObject = dictionary.object();
+        QJsonValue tempValue = tempObject.value(actual);
+        if(tempValue == QJsonValue::Undefined)
         {
-            cout << "Wrong character in the input, unavailable to encode it!" << endl;
+            qDebug() << "Wrong character in the input, unavailable to encode it!" << endl;
             return;
         }
         else
         {
-            string encodedChar = dictionary[actual];
-            encodedString += encodedChar;
+            encodedString += tempValue.toString();
         }
 
 
-	}
-    cout << encodedString << endl;
+    }
+    qDebug() << encodedString;
 }
 
 

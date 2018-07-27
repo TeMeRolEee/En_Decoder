@@ -1,54 +1,66 @@
 // En_Decoder.cpp : Defines the entry point for the console application.
 //
 
-#include <string>
-#include <iostream>
-
+#include <QtCore>
 
 #include "Dictionary.h"
 #include "Encoder.h"
 #include "Decoder.h"
 
-using namespace std;
 
 void helper()
 {
-	cout << "Available commands:" << endl;
-    cout << ">1 ENCODE" << endl;
-    cout << ">2 DECODE" << endl;
-    //cout << ">3 ENCODE_FILE" << endl;
-    //cout << ">4 DECODE_FILE" << endl;
-    cout << ">5 HELP" << endl;
-    cout << ">0 EXIT" << endl;
+	qDebug() << "Available commands:";
+    qDebug() << ">1 ENCODE";
+    qDebug() << ">2 DECODE";
+    qDebug() << ">5 HELP";
+    qDebug() << ">0 EXIT";
 }
 
 int main()
 {
-    string encodePath;
-    cout << "Pls give me the path: ";
-    cin >> encodePath;
-    Dictionary *encode_dictionary = new Dictionary(encodePath);
+    QTextStream qtin(stdin);
+    QString line = qtin.readLine();
+    QString dictionaryPath;
+    qDebug() << "Pls give me the path: ";
+    qtin >> dictionaryPath;
+    Dictionary *encode_dictionary = new Dictionary(dictionaryPath);
     Dictionary *decode_dictionary = new Dictionary(encode_dictionary->getDict());
     Encoder *encoder = new Encoder();
     Decoder *decoder = new Decoder();
-	//Decoder *decode=NULL;
 
 	helper();
     int input = 10;
-    string EncodeString;
-    string DecodeString;
+    QString EncodeString;
+    QString DecodeString;
     while (input != 0)
 	{
-        cin >> input;
+        qtin >> input;
         switch (input) {
         case 1:
-            cin >> EncodeString;
-            encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
+            qtin >> EncodeString;
+                try
+                {
+                    encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
+                }
+                catch(QException &exception)
+                {
+                    qDebug() << exception.what();
+                }
+
             break;
         case 2:
-            cout << input << endl;
-            cin >> DecodeString;
-            decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
+            qDebug() << input;
+            qtin >> DecodeString;
+
+                try
+                {
+                    decoder->DecodeIt(DecodeString,decode_dictionary->getDict());
+                }
+                catch(QException &exception)
+                {
+                    qDebug() << exception.what();
+                }
             break;
         case 5:
             helper();
