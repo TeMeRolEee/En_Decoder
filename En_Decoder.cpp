@@ -7,12 +7,34 @@
 #include "Encoder.h"
 #include "Decoder.h"
 
+void writeFile(const QString& input, const QString& path)
+{
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        qDebug() << "Couldn't open the file";
+    } else
+    {
+        QTextStream out(&file);
+        out << input;
+    }
+}
 
-void helper() {
-	qDebug() << "Available commands:";
-	qDebug() << ">1 ENCODE";
-	qDebug() << ">2 DECODE";
-	qDebug() << ">0 EXIT";
+QString readFile(const QString& path)
+{
+    QString readString;
+    QFile file("in.txt");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        return"";
+    }
+
+
+    QTextStream in(&file);
+    while (!in.atEnd()) {
+        QString line = in.readLine();
+        readString.append(line);
+    }
 }
 
 int main(int argc, char *argv[]) {
@@ -35,13 +57,21 @@ int main(int argc, char *argv[]) {
 	QCommandLineOption encodeOption(QStringList() << "e" << "encode", "The string to be encoded.", "encode");
 	parser.addOption(encodeOption);
 
-	//-de String to decode
+	//-ens String to encode source path
+    QCommandLineOption encodeSourceFileOption(QStringList() << "efs" <<  "encodesource", "Encode source path.", "encodesource");
+    parser.addOption(encodeSourceFileOption);
+
+    //-end Encode destination path
+    QCommandLineOption encodeDestinationFileOption(QStringList() << "efd" <<  "encodedest", "Encode destination path.", "encodedest");
+    parser.addOption(encodeDestinationFileOption);
+
+    //-de String to decode
 	QCommandLineOption decodeOption(QStringList() << "d" << "decode", "The string to be decoded.", "decode");
 	parser.addOption(decodeOption);
 
-	//-help Helper
-	QCommandLineOption helpOption("help", "Helper");
-	parser.addOption(helpOption);
+    //-help Helper
+    QCommandLineOption helpOption("help", "Helper");
+    parser.addOption(helpOption);
 
 	//Parsing the commands given by the user
 	parser.process(app);
@@ -67,7 +97,25 @@ int main(int argc, char *argv[]) {
 	QString DecodeString, DecodedString;
 
 
-	if (parser.isSet(encodeOption)) {
+	if(parser.isSet(encodeSourceFileOption) && parser.isSet(encodeDestinationFileOption)) {
+        EncodeString = readFile(parser.value(encodeSourceFileOption));
+        try {
+            EncodedString = encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
+            if(EncodedString == "")
+            {
+                qDebug() << "Wrong character in the input, unavailable to encode it!";
+            } else
+            {
+                qDebug() << EncodedString;
+            }
+        }
+        catch(QException &exception)
+        {
+            qDebug() << exception.what();
+        }
+    }
+
+    if(parser.isSet(encodeOption)){
 		EncodeString = parser.value(encodeOption);
 		try {
 			EncodedString = encoder->EncodeIt(EncodeString, encode_dictionary->getDict());
