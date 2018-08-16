@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
 
 
 	//-p  Path to the dictionary
-    QCommandLineOption FileModeOption(QStringList() << "f" << "filemode",  "Asks for files to read from and write to. (Y/N)", "filemode");
+    QCommandLineOption FileModeOption(QStringList() << "f" << "filemode",  "Asks for files to read from and write to. (Y/N)");
     parser.addOption(FileModeOption);
 
     //-en String to encode / bool
@@ -67,14 +67,6 @@ int main(int argc, char *argv[]) {
 	//-de String to decode / bool
 	QCommandLineOption decodeOption(QStringList() << "d" << "decode", "The string to be decoded.", "decode");
 	parser.addOption(decodeOption);
-
-    //-ens String to encode source path
-    QCommandLineOption encodeSourceFileOption(QStringList() << "efs" <<  "encodesource", "Encode source path.", "encodesource");
-    parser.addOption(encodeSourceFileOption);
-
-    //-end Encode destination path
-    QCommandLineOption encodeDestinationFileOption(QStringList() << "efd" <<  "encodedest", "Encode destination path.", "encodedest");
-    parser.addOption(encodeDestinationFileOption);
 
     //-s String to source path
     QCommandLineOption SourceFileOption(QStringList() << "s" <<  "source", "Source path.", "source");
@@ -176,6 +168,15 @@ int main(int argc, char *argv[]) {
 		}
         return 0;
 	}
+
+	if(parser.isSet(FileModeOption))
+    {
+
+    }
+
+
+
+
 
 	parser.showHelp();
 

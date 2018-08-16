@@ -8,7 +8,7 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Widgets HINTS ~/Qt/5.11.1/gcc_64/)
 
 # compiling
-add_executable(En_Decoder En_Decoder.cpp Encoder.cpp Decoder.cpp Dictionary.cpp)
+add_executable(En_Decoder main.cpp Encoder.cpp Decoder.cpp Dictionary.cpp)
 
 # copy dict to build dir
 configure_file(dict.json dict.json COPYONLY)
