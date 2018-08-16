@@ -16,8 +16,6 @@ Dictionary::Dictionary(QString path)
     {
         qDebug() << exception.what();
     }
-
-
 }
 
 Dictionary::Dictionary(QJsonDocument inputJson)
