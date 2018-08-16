@@ -14,9 +14,9 @@ void Decoder::DecodeIt(QString input, QJsonDocument dictionary)
 {
     QString outputString = "";
     QString actualInputString = "";
-    for (qint32 i = 0; i < input.length(); i++)
+    for (auto item : input)
     {
-        actualInputString = actualInputString.append(input.at(i));
+        actualInputString = actualInputString.append(item);
         QJsonObject tempObject = dictionary.object();
         QJsonValue tempValue = tempObject.value(actualInputString);
         if(tempValue != QJsonValue::Undefined)
