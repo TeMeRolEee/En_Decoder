@@ -7,7 +7,6 @@ Dictionary::Dictionary(QString path)
 	if(!handle.open(QFile::ReadOnly)) qDebug() << "Couldn't open file";
 
 	QByteArray data = handle.readAll();
-	qDebug() << "file opened";
 
     try
     {
@@ -15,7 +14,7 @@ Dictionary::Dictionary(QString path)
     }
     catch (QException &exception)
     {
-        qDebug() << exception.what() << " bleeeeee";
+        qDebug() << exception.what();
     }
 
 
@@ -46,7 +45,7 @@ void Dictionary::swapJson(QJsonDocument inputJson)
 		QJsonValue jsonValue = jsonObject.value(key);
 		insertJson->insert(jsonValue.toString(),key);
 	}
-    qDebug() << "swapped";
+
     try
     {
         dictionary = new QJsonDocument(*insertJson);
