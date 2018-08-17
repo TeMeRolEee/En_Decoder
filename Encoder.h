@@ -1,6 +1,4 @@
 #pragma once
-#include <string>
-#include <iostream>
 
 #include "Dictionary.h"
 
@@ -11,7 +9,7 @@ private:
 public:
 	Encoder();
 	~Encoder();
-	void EncodeIt(QString input, QJsonDocument dictionary);
+	QString EncodeIt(QString input, QJsonDocument dictionary);
 	
 };
 

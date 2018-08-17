@@ -1,7 +1,4 @@
 #pragma once
-#include <iostream>
-#include <string>
-
 
 #include "Dictionary.h"
 
@@ -12,6 +9,6 @@ class Decoder
 public:
     Decoder();
     ~Decoder();
-    void DecodeIt(QString input, QJsonDocument dictionary);
+    QString DecodeIt(QString input, QJsonDocument dictionary);
 };
 

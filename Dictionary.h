@@ -1,5 +1,4 @@
 #pragma once
-#include <QFile>
 #include <QtCore>
 
 class Dictionary
