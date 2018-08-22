@@ -7,8 +7,8 @@
 QString getFilename(const QString &path, const QString &prefix) {
     QString defaultFileName = QDate::currentDate().toString("yyyy_MM_dd") + "_" +
                               QTime::currentTime().toString("hh_mm_ss") + ".txt";
-    if (path == "") {
-        return QString("").append(prefix).append(defaultFileName);
+    if (path.isEmpty()) {
+        return QString().append(prefix).append(defaultFileName);
     }
 
     return path;
@@ -35,9 +35,10 @@ void writeFile(const QString &input, const QString &path, bool codingMode = fals
 QString readFile(const QString &path) {
     QString readString;
     QFile file(path);
+
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         qDebug() << "Couldn't open file";
-        return "";
+        return QString();
     }
 
     QTextStream in(&file);
@@ -55,7 +56,7 @@ void printOutput(const QString &input) {
 int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
     QCoreApplication::setApplicationName("En_Decoder");
-    QCoreApplication::setApplicationVersion("0.8.0");
+    QCoreApplication::setApplicationVersion("0.9.0");
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Encodes and decodes text via a given dictionary");
@@ -90,15 +91,16 @@ int main(int argc, char *argv[]) {
     if (!positionalArgument.isEmpty()) {
         dictionaryPath = positionalArgument.first();
     } else {
-        qDebug() << "No path given. Exiting";
-        return 1;
+        qDebug() << "No path given.";
+        parser.showHelp();
     }
 
-    Dictionary *encode_dictionary = new Dictionary(dictionaryPath);
-    Dictionary *decode_dictionary = new Dictionary(encode_dictionary->getDict());
+    auto encode_dictionary = std::make_unique<Dictionary>(dictionaryPath);
+    auto decode_dictionary = std::make_unique<Dictionary>(encode_dictionary->getDict());
 
-    Encoder *encoder = new Encoder();
-    Decoder *decoder = new Decoder();
+    auto encoder = std::make_unique<Encoder>();
+    auto decoder = std::make_unique<Decoder>();
+
 
     QString EncodeString, EncodedString;
     QString DecodeString, DecodedString;
@@ -106,35 +108,44 @@ int main(int argc, char *argv[]) {
     QString outputPath = parser.isSet(destinationOption) ? parser.value(destinationOption) : "";
 
     if (parser.isSet(encodeOption)) {
+
         QString Input = parser.isSet(FileModeOption) ? readFile(parser.value(encodeOption)) : parser.value(
                 encodeOption);
-        if (Input == "") {
+
+        if (Input.isEmpty()) {
             qDebug() << "Wrong input";
             return 1;
         }
+
         QString EncodeOutput = encoder->EncodeIt(Input, encode_dictionary->getDict());
-        if (EncodeOutput == "") {
+
+        if (EncodeOutput.isEmpty()) {
             qDebug() << "Unable to encode";
             return 1;
         }
+
         parser.isSet(FileModeOption) ? writeFile(EncodeOutput, outputPath) : printOutput(EncodeOutput);
         return 0;
+
     } else if (parser.isSet(decodeOption)) {
         QString DecodeInput = parser.isSet(FileModeOption) ? readFile(parser.value(decodeOption)) : parser.value(
                 decodeOption);
-        if (DecodeInput == "") {
+
+        if (DecodeInput.isEmpty()) {
             qDebug() << "Wrong input";
             return 1;
         }
+
         QString DecodeOutput = decoder->DecodeIt(DecodeInput, decode_dictionary->getDict());
-        if (DecodeOutput == "") {
+
+        if (DecodeOutput.isEmpty()) {
             qDebug() << "Unable to encode";
             return 1;
         }
+
         parser.isSet(FileModeOption) ? writeFile(DecodeOutput, outputPath, true) : printOutput(DecodeOutput);
         return 0;
     }
+
     parser.showHelp();
-
 }
-

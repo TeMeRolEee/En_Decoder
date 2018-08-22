@@ -1,25 +1,15 @@
 #include "Encoder.h"
 
-Encoder::Encoder()
-{
-}
-
-
-Encoder::~Encoder()
-{
-}
-
 QString Encoder::EncodeIt(QString input, QJsonDocument dictionary)
 {
     QString encodedString;
-    for (unsigned int i = 0; i < input.length(); i++)
-    {
-        QString actual(1, input[i]);
+    for (const auto &i : input) {
+        QString actual(1, i);
         QJsonObject tempObject = dictionary.object();
         QJsonValue tempValue = tempObject.value(actual);
         if(tempValue == QJsonValue::Undefined)
         {
-            return "";
+            return QString();
         }
         else
         {
