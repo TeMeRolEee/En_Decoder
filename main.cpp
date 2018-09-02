@@ -95,19 +95,14 @@ int main(int argc, char *argv[]) {
         parser.showHelp();
     }
 
-    auto encode_dictionary = std::make_unique<Dictionary>(dictionaryPath);
-    auto decode_dictionary = std::make_unique<Dictionary>(encode_dictionary->getDict());
-
-    auto encoder = std::make_unique<Encoder>();
-    auto decoder = std::make_unique<Decoder>();
+    auto dictionary = std::make_unique<Dictionary>(dictionaryPath);
 
 
-    QString EncodeString, EncodedString;
-    QString DecodeString, DecodedString;
 
     QString outputPath = parser.isSet(destinationOption) ? parser.value(destinationOption) : "";
 
     if (parser.isSet(encodeOption)) {
+        auto encoder = std::make_unique<Encoder>(dictionary->getDict());
 
         QString Input = parser.isSet(FileModeOption) ? readFile(parser.value(encodeOption)) : parser.value(
                 encodeOption);
@@ -117,7 +112,7 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
-        QString EncodeOutput = encoder->EncodeIt(Input, encode_dictionary->getDict());
+        QString EncodeOutput = encoder->EncodeIt(Input);
 
         if (EncodeOutput.isEmpty()) {
             qDebug() << "Unable to encode";
@@ -128,6 +123,8 @@ int main(int argc, char *argv[]) {
         return 0;
 
     } else if (parser.isSet(decodeOption)) {
+        auto decoder = std::make_unique<Decoder>(dictionary->swapJson(dictionary->getDict()));
+
         QString DecodeInput = parser.isSet(FileModeOption) ? readFile(parser.value(decodeOption)) : parser.value(
                 decodeOption);
 
@@ -136,7 +133,7 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
-        QString DecodeOutput = decoder->DecodeIt(DecodeInput, decode_dictionary->getDict());
+        QString DecodeOutput = decoder->DecodeIt(DecodeInput);
 
         if (DecodeOutput.isEmpty()) {
             qDebug() << "Unable to encode";

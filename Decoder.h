@@ -5,6 +5,11 @@
 class Decoder
 {
 public:
-    QString DecodeIt(QString input, QJsonDocument dictionary);
+    Decoder(QJsonDocument *inputDictionary);
+    ~Decoder();
+    QString DecodeIt(QString input);
+
+private:
+    QJsonDocument *dictionary;
 };
 

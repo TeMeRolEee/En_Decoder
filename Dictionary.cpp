@@ -23,6 +23,7 @@ Dictionary::Dictionary(QJsonDocument inputJson)
 }
 
 Dictionary::~Dictionary() {
+    delete dictionary;
 }
 
 QJsonDocument Dictionary::getDict()
@@ -30,26 +31,16 @@ QJsonDocument Dictionary::getDict()
 	return *dictionary;
 }
 
-void Dictionary::swapJson(QJsonDocument inputJson)
+QJsonDocument* Dictionary::swapJson(QJsonDocument inputJson)
 {
 	QJsonObject jsonObject = inputJson.object();
 	QJsonObject *insertJson = new QJsonObject();
-
 	for (const auto &key : jsonObject.keys()) {
         QJsonValue jsonValue = jsonObject.value(key);
         insertJson->insert(jsonValue.toString(),key);
 	}
-
-    try
-    {
-        dictionary = new QJsonDocument(*insertJson);
-    }
-    catch (QException &exception)
-    {
-        qDebug() << exception.what();
-    }
+    QJsonDocument *qJsonDocument = new QJsonDocument(*insertJson);
+	delete insertJson;
+	return qJsonDocument;
 
 }
-
-
-

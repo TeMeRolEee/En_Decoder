@@ -5,6 +5,11 @@
 class Encoder
 {
 public:
-	QString EncodeIt(QString input, QJsonDocument dictionary);
+    Encoder(QJsonDocument inputDictionary);
+    ~Encoder();
+	QString EncodeIt(QString input);
+
+private:
+    QJsonDocument dictionary;
 };
 

@@ -1,6 +1,10 @@
 #include "Encoder.h"
 
-QString Encoder::EncodeIt(QString input, QJsonDocument dictionary)
+Encoder::Encoder(QJsonDocument inputDictionary) {
+    dictionary = std::move(inputDictionary);
+}
+
+QString Encoder::EncodeIt(QString input)
 {
     QString encodedString;
     for (const auto &i : input) {
@@ -18,6 +22,12 @@ QString Encoder::EncodeIt(QString input, QJsonDocument dictionary)
     }
     return encodedString;
 }
+
+Encoder::~Encoder() {
+
+}
+
+
 
 
 

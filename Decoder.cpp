@@ -1,6 +1,14 @@
 #include "Decoder.h"
 
-QString Decoder::DecodeIt(QString input, QJsonDocument dictionary)
+Decoder::Decoder(QJsonDocument *inputDictionary) {
+    dictionary = inputDictionary;
+}
+
+Decoder::~Decoder() {
+    delete dictionary;
+}
+
+QString Decoder::DecodeIt(QString input)
 {
     QString outputString;
     QString actualInputString;
@@ -8,7 +16,7 @@ QString Decoder::DecodeIt(QString input, QJsonDocument dictionary)
     for (const auto &item : input)
     {
         actualInputString = actualInputString.append(item);
-        QJsonObject tempObject = dictionary.object();
+        QJsonObject tempObject = dictionary->object();
         QJsonValue tempValue = tempObject.value(actualInputString);
 
         if(tempValue != QJsonValue::Undefined)
@@ -25,3 +33,4 @@ QString Decoder::DecodeIt(QString input, QJsonDocument dictionary)
 
     return QString();
 }
+
