@@ -2,11 +2,12 @@
 
 #include "dictionary.h"
 
-class Decoder
-{
+class Decoder {
 public:
     Decoder(QJsonDocument *inputDictionary);
+
     ~Decoder();
+
     QString decodeInput(QString input);
 
 private:

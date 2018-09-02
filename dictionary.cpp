@@ -1,46 +1,40 @@
 #include "dictionary.h"
 
-Dictionary::Dictionary(QString path)
-{
-	QFile handle(path);
-	if(!handle.open(QFile::ReadOnly)) qDebug() << "Couldn't open file";
+Dictionary::Dictionary(QString path) {
+    QFile handle(path);
+    if (!handle.open(QFile::ReadOnly)) qDebug() << "Couldn't open file";
 
-	QByteArray data = handle.readAll();
+    QByteArray data = handle.readAll();
 
-    try
-    {
+    try {
         jsonDictionary = new QJsonDocument(QJsonDocument::fromJson(data));
     }
-    catch (QException &exception)
-    {
+    catch (QException &exception) {
         qDebug() << exception.what();
     }
 }
 
-Dictionary::Dictionary(QJsonDocument inputJson)
-{
-	swapJson(inputJson);
+Dictionary::Dictionary(QJsonDocument inputJson) {
+    swapJson(inputJson);
 }
 
 Dictionary::~Dictionary() {
     delete jsonDictionary;
 }
 
-QJsonDocument Dictionary::getDict()
-{
-	return *jsonDictionary;
+QJsonDocument Dictionary::getDict() {
+    return *jsonDictionary;
 }
 
-QJsonDocument* Dictionary::swapJson(QJsonDocument inputJson)
-{
-	QJsonObject jsonObject = inputJson.object();
-	QJsonObject *insertJson = new QJsonObject();
-	for (const auto &key : jsonObject.keys()) {
+QJsonDocument *Dictionary::swapJson(QJsonDocument inputJson) {
+    QJsonObject jsonObject = inputJson.object();
+    QJsonObject *insertJson = new QJsonObject();
+    for (const auto &key : jsonObject.keys()) {
         QJsonValue jsonValue = jsonObject.value(key);
-        insertJson->insert(jsonValue.toString(),key);
-	}
+        insertJson->insert(jsonValue.toString(), key);
+    }
     QJsonDocument *qJsonDocument = new QJsonDocument(*insertJson);
-	delete insertJson;
-	return qJsonDocument;
+    delete insertJson;
+    return qJsonDocument;
 
 }

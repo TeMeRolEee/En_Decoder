@@ -98,7 +98,6 @@ int main(int argc, char *argv[]) {
     auto dictionary = std::make_unique<Dictionary>(dictionaryPath);
 
 
-
     QString outputPath = parser.isSet(destinationOption) ? parser.value(destinationOption) : "";
 
     if (parser.isSet(encodeOption)) {

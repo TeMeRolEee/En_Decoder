@@ -4,19 +4,15 @@ Encoder::Encoder(QJsonDocument inputDictionary) {
     dictionary = std::move(inputDictionary);
 }
 
-QString Encoder::encodeInput(QString input)
-{
+QString Encoder::encodeInput(QString input) {
     QString encodedString;
     for (const auto &i : input) {
         QString actual(1, i);
         QJsonObject tempObject = dictionary.object();
         QJsonValue tempValue = tempObject.value(actual);
-        if(tempValue == QJsonValue::Undefined)
-        {
+        if (tempValue == QJsonValue::Undefined) {
             return QString();
-        }
-        else
-        {
+        } else {
             encodedString += tempValue.toString();
         }
     }
