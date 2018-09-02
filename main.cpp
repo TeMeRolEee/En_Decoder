@@ -1,4 +1,5 @@
 #include <QtCore>
+#include <iostream>
 
 #include "dictionary.h"
 #include "encoder.h"
@@ -50,7 +51,7 @@ QString readFile(const QString &path) {
 }
 
 void printOutput(const QString &input) {
-    qDebug() << input;
+    std::cout << input.toStdString() << std::endl;
 }
 
 int main(int argc, char *argv[]) {
