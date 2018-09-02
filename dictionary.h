@@ -3,8 +3,6 @@
 
 class Dictionary
 {
-private:
-    QJsonDocument *dictionary;
 public:
     explicit Dictionary(QString path);
 
@@ -13,7 +11,7 @@ public:
 
 	QJsonDocument *swapJson(QJsonDocument inputJson);
 	QJsonDocument getDict();
-
-
+private:
+    QJsonDocument *jsonDictionary;
 };
 

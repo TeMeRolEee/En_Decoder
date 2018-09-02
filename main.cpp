@@ -1,8 +1,8 @@
 #include <QtCore>
 
-#include "Dictionary.h"
-#include "Encoder.h"
-#include "Decoder.h"
+#include "dictionary.h"
+#include "encoder.h"
+#include "decoder.h"
 
 QString getFilename(const QString &path, const QString &prefix) {
     QString defaultFileName = QDate::currentDate().toString("yyyy_MM_dd") + "_" +
@@ -56,7 +56,7 @@ void printOutput(const QString &input) {
 int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
     QCoreApplication::setApplicationName("En_Decoder");
-    QCoreApplication::setApplicationVersion("0.9.0");
+    QCoreApplication::setApplicationVersion("0.9.5");
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Encodes and decodes text via a given dictionary");
@@ -65,9 +65,9 @@ int main(int argc, char *argv[]) {
 
     parser.addPositionalArgument("dictionary", "The path to the dictionary file.");
 
-    QCommandLineOption FileModeOption(QStringList() << "f" << "filemode",
+    QCommandLineOption fileModeOption(QStringList() << "f" << "filemode",
                                       "Asks for files to read from and write to.");
-    parser.addOption(FileModeOption);
+    parser.addOption(fileModeOption);
 
     QCommandLineOption encodeOption(QStringList() << "e" << "encode", "The string to be encoded.", "encode");
     parser.addOption(encodeOption);
@@ -104,43 +104,43 @@ int main(int argc, char *argv[]) {
     if (parser.isSet(encodeOption)) {
         auto encoder = std::make_unique<Encoder>(dictionary->getDict());
 
-        QString Input = parser.isSet(FileModeOption) ? readFile(parser.value(encodeOption)) : parser.value(
+        QString input = parser.isSet(fileModeOption) ? readFile(parser.value(encodeOption)) : parser.value(
                 encodeOption);
 
-        if (Input.isEmpty()) {
+        if (input.isEmpty()) {
             qDebug() << "Wrong input";
             return 1;
         }
 
-        QString EncodeOutput = encoder->EncodeIt(Input);
+        QString encodeOutput = encoder->encodeInput(input);
 
-        if (EncodeOutput.isEmpty()) {
+        if (encodeOutput.isEmpty()) {
             qDebug() << "Unable to encode";
             return 1;
         }
 
-        parser.isSet(FileModeOption) ? writeFile(EncodeOutput, outputPath) : printOutput(EncodeOutput);
+        parser.isSet(fileModeOption) ? writeFile(encodeOutput, outputPath) : printOutput(encodeOutput);
         return 0;
 
     } else if (parser.isSet(decodeOption)) {
         auto decoder = std::make_unique<Decoder>(dictionary->swapJson(dictionary->getDict()));
 
-        QString DecodeInput = parser.isSet(FileModeOption) ? readFile(parser.value(decodeOption)) : parser.value(
+        QString decodeInput = parser.isSet(fileModeOption) ? readFile(parser.value(decodeOption)) : parser.value(
                 decodeOption);
 
-        if (DecodeInput.isEmpty()) {
+        if (decodeInput.isEmpty()) {
             qDebug() << "Wrong input";
             return 1;
         }
 
-        QString DecodeOutput = decoder->DecodeIt(DecodeInput);
+        QString decodeOutput = decoder->decodeInput(decodeInput);
 
-        if (DecodeOutput.isEmpty()) {
+        if (decodeOutput.isEmpty()) {
             qDebug() << "Unable to encode";
             return 1;
         }
 
-        parser.isSet(FileModeOption) ? writeFile(DecodeOutput, outputPath, true) : printOutput(DecodeOutput);
+        parser.isSet(fileModeOption) ? writeFile(decodeOutput, outputPath, true) : printOutput(decodeOutput);
         return 0;
     }
 

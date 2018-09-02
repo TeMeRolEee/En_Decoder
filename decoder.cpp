@@ -1,4 +1,4 @@
-#include "Decoder.h"
+#include "decoder.h"
 
 Decoder::Decoder(QJsonDocument *inputDictionary) {
     dictionary = inputDictionary;
@@ -8,7 +8,7 @@ Decoder::~Decoder() {
     delete dictionary;
 }
 
-QString Decoder::DecodeIt(QString input)
+QString Decoder::decodeInput(QString input)
 {
     QString outputString;
     QString actualInputString;

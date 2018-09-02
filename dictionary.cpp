@@ -1,4 +1,4 @@
-#include "Dictionary.h"
+#include "dictionary.h"
 
 Dictionary::Dictionary(QString path)
 {
@@ -9,7 +9,7 @@ Dictionary::Dictionary(QString path)
 
     try
     {
-        dictionary = new QJsonDocument(QJsonDocument::fromJson(data));
+        jsonDictionary = new QJsonDocument(QJsonDocument::fromJson(data));
     }
     catch (QException &exception)
     {
@@ -23,12 +23,12 @@ Dictionary::Dictionary(QJsonDocument inputJson)
 }
 
 Dictionary::~Dictionary() {
-    delete dictionary;
+    delete jsonDictionary;
 }
 
 QJsonDocument Dictionary::getDict()
 {
-	return *dictionary;
+	return *jsonDictionary;
 }
 
 QJsonDocument* Dictionary::swapJson(QJsonDocument inputJson)

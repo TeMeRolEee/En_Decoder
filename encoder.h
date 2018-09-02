@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Dictionary.h"
+#include "dictionary.h"
 
 class Encoder
 {
 public:
     Encoder(QJsonDocument inputDictionary);
     ~Encoder();
-	QString EncodeIt(QString input);
+	QString encodeInput(QString input);
 
 private:
     QJsonDocument dictionary;

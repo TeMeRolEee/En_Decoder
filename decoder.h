@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Dictionary.h"
+#include "dictionary.h"
 
 class Decoder
 {
 public:
     Decoder(QJsonDocument *inputDictionary);
     ~Decoder();
-    QString DecodeIt(QString input);
+    QString decodeInput(QString input);
 
 private:
     QJsonDocument *dictionary;
